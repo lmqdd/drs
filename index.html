@@ -1,33 +1,244 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <title>drs官网</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            margin-top: 80px;
-            background-color: #f0f7ff;
-        }
-        .box {
-            display: inline-block;
-            padding: 30px 50px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px #00000018;
-        }
-        h1 {
-            color: #2563eb;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>MCDRS · mcdrs.xyz — 无规则服务器</title>
+  <meta name="description" content="MCDRS 无规则生存服务器 · 支持 1.9 – 26.2 客户端（实时更新）· Paper 26.2 服务端 · IP: mcdrs.xyz" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b57d0'/%3E%3Cpath d='M16 46V20l6 4 10-8 10 8 6-4v26h-12V32l-4-4-4 4v14z' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="box">
-        <h1>✅ drs官网 部署测试成功</h1>
-        <p>页面加载正常，服务可访问</p>
-        <p>测试时间：20260916 14:29:34</p>
+
+  <div class="bg-canvas" aria-hidden="true"><div class="bg-canvas__grad" id="bgGrad"></div></div>
+  <div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a class="brand" href="#top" aria-label="MCDRS 首页">
+        <span class="brand__mark" aria-hidden="true">M</span>
+        <span class="brand__name">MCDRS</span>
+      </a>
+      <nav class="nav__links" aria-label="页面导航">
+        <a href="#status">服务器状态</a>
+        <a href="#gallery">风采</a>
+        <a href="#admins">管理团队</a>
+        <a href="#contact">联系我们</a>
+        <a href="#thanks">特别感谢</a>
+      </nav>
+      <button class="btn btn--filled nav__cta" type="button" data-copy-ip>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"/></svg>
+        复制 IP
+      </button>
+      <a class="btn btn--filled nav__docs" href="docs.html" type="button">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        进入文档
+      </a>
+      <button class="btn btn--outlined nav__admin" id="adminBtn" type="button">管理员模式</button>
     </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ═══════════ 01 · Hero + 服务器状态 ═══════════ -->
+    <section class="hero section" id="status">
+      <div class="hero-decor" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="container hero__inner reveal">
+        <p class="hero-badge"><span class="hero-badge__dot" aria-hidden="true"></span>NO RULES · PURE SURVIVAL</p>
+        <h1 class="display">无规则<br /><span class="gradient-text">自由生存</span></h1>
+        <p class="lede">
+          这里没有禁令，没有限制，只有最纯粹的 Minecraft。
+          服务器采用 <strong>Velocity</strong> 智能代理，
+          全子服运行 <strong>Paper 26.2</strong> 核心，
+          支持 <strong>1.9 – 26.2</strong> 全版本客户端进入（实时更新）。
+        </p>
+
+        <div class="status-card card liquid-glass--edge" role="region" aria-label="服务器实时状态">
+          <div class="status-card__head">
+            <span class="live-dot" id="statusDot" aria-hidden="true"></span>
+            <span class="status-card__state" id="statusText">正在获取状态…</span>
+            <span class="status-card__time" id="statusUpdated"></span>
+          </div>
+
+          <div class="status-card__ip">
+            <img class="status-logo" id="serverLogo" alt="服务器图标" hidden />
+            <code id="serverIp">mcdrs.xyz</code>
+            <button class="btn btn--tonal btn--sm" type="button" data-copy-ip>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"/></svg>
+              复制
+            </button>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat">
+              <span class="stat__value" id="playersOnline">—</span>
+              <span class="stat__label">在线玩家</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value" id="playersMax">—</span>
+              <span class="stat__label">最大容量</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value" id="serverPing">—</span>
+              <span class="stat__label">实时延迟</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value" id="serverVersion">Paper 26.2</span>
+              <span class="stat__label">服务端核心</span>
+            </div>
+          </div>
+
+          <div class="meter" aria-hidden="true">
+            <div class="meter__fill" id="playersMeter" style="--w:0%"></div>
+          </div>
+
+          <ul class="chips">
+            <li class="chip"><svg class="icon icon--sm" viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>支持 1.9 – 26.2 客户端</li>
+            <li class="chip"><svg class="icon icon--sm" viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Paper 26.2 子服</li>
+            <li class="chip"><svg class="icon icon--sm" viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>正版 / 离线均可进入</li>
+            <li class="chip" id="proxyChip" hidden><svg class="icon icon--sm" viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg><span id="proxyText"></span></li>
+          </ul>
+
+          <pre class="motd" id="serverMotd" hidden></pre>
+        </div>
+
+        <div class="hero__actions">
+          <button class="btn btn--filled btn--lg" type="button" data-copy-ip>立即加入服务器</button>
+          <a class="btn btn--outlined btn--lg" href="#contact">加入官方群聊</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 02 · 图片展示 ═══════════ -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">GALLERY</p>
+          <h2>服务器风采</h2>
+          <p class="section-head__desc">来自 mcDRS 的精彩瞬间。</p>
+        </header>
+        <div class="grid grid--3" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 03 · 管理团队 ═══════════ -->
+    <section class="section section--alt" id="admins">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">THE TEAM</p>
+          <h2>管理团队</h2>
+          <p class="section-head__desc">维护服务器稳定运行的幕后成员。</p>
+        </header>
+        <div class="grid grid--3" id="adminGrid"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 03 · 联系我们 ═══════════ -->
+    <section class="section" id="contact">
+      <div class="container contact-wrap reveal">
+        <header class="section-head">
+          <p class="eyebrow">GET IN TOUCH</p>
+          <h2>联系我们</h2>
+          <p class="section-head__desc">加入官方 QQ 群，获取最新动态、举报问题或与玩家交流。</p>
+        </header>
+        <div class="card contact-card liquid-glass--edge">
+          <div class="contact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2M6 9h12v2H6zm8 5H6v-2h8zm4-6H6V6h12z"/></svg>
+          </div>
+          <div class="contact-card__body">
+            <p class="contact-card__label">官方 QQ 群</p>
+            <p class="contact-card__number" id="qqNumber">885640239</p>
+          </div>
+          <button class="btn btn--filled" type="button" id="copyQqBtn">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"/></svg>
+            复制群号
+          </button>
+        </div>
+        <div class="card contact-card liquid-glass--edge" style="margin-top:16px">
+          <div class="contact-card__icon" aria-hidden="true" style="background:conic-gradient(from 200deg, #4285f4, #a78bdb, #4285f4)">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4v14H4V6h16v14" fill="#fff"/></svg>
+          </div>
+          <div class="contact-card__body">
+            <p class="contact-card__label">官方反馈邮箱</p>
+            <p class="contact-card__number" id="emailAddress" style="font-size:clamp(1.1rem,3vw,1.5rem)">mcdrs33@hotmail.com</p>
+          </div>
+          <button class="btn btn--filled" type="button" id="copyEmailBtn">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"/></svg>
+            复制邮箱
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 04 · 特别感谢 ═══════════ -->
+    <section class="section section--alt" id="thanks">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">ACKNOWLEDGEMENTS</p>
+          <h2>特别感谢</h2>
+          <p class="section-head__desc">感谢以下站点与项目对本服务器的支持。</p>
+        </header>
+        <div class="grid grid--4" id="thanksGrid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__intro">
+          <div class="footer__brand">
+            <span class="brand__mark brand__mark--sm" aria-hidden="true">M</span>
+            <span>MCDRS</span>
+          </div>
+          <p class="footer__tagline">无规则，自由生存。</p>
+          <p class="footer__meta">mcdrs.xyz · Paper 26.2 · 1.9 – 26.2</p>
+        </div>
+        <nav class="footer__col" aria-label="页脚导航">
+          <p class="footer__head">探索</p>
+          <a href="#status">服务器状态</a>
+          <a href="#gallery">服务器风采</a>
+          <a href="#admins">管理团队</a>
+          <a href="#thanks">特别感谢</a>
+        </nav>
+        <div class="footer__col">
+          <p class="footer__head">社区</p>
+          <a href="#contact">加入 QQ 群</a>
+          <button class="linklike" type="button" data-copy-ip>复制服务器 IP</button>
+        </div>
+      </div>
+      <div class="footer__bar">
+        <span>© 2026 MCDRS · 保留所有权利</span>
+        <span class="footer__credit">网站制作<strong>zhangyuhexht</strong></span>
+      </div>
+      <p class="footer__legal">本站为玩家自建网站，与 Mojang Studios 及 Microsoft 无关。Minecraft 是 Mojang Synergies AB 的商标。</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="图片预览">
+    <button class="lightbox__btn lightbox__nav lightbox__prev" id="lbPrev" type="button" aria-label="上一张">&#8249;</button>
+    <figure class="lightbox__stage">
+      <img class="lightbox__img" id="lbImg" alt="" />
+      <figcaption class="lightbox__caption" id="lbCaption"></figcaption>
+    </figure>
+    <button class="lightbox__btn lightbox__nav lightbox__next" id="lbNext" type="button" aria-label="下一张">&#8250;</button>
+    <button class="lightbox__btn lightbox__close" id="lbClose" type="button" aria-label="关闭">&#10005;</button>
+  </div>
+
+  <div class="passcode" id="passcode" role="dialog" aria-modal="true" aria-label="管理员验证">
+    <div class="passcode__sheet">
+      <i class="passcode__sheen" aria-hidden="true"></i>
+      <p class="passcode__title">输入密码</p>
+      <p class="passcode__subtitle">管理员验证</p>
+      <div class="passcode__dots" id="pcDots" aria-live="polite"></div>
+      <div class="passcode__pad" id="pcPad"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
 
